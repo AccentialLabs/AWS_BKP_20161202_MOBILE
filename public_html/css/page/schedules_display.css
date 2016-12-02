@@ -1,0 +1,97 @@
+@font-face {
+
+    font-family: "Open Sans";
+    src: url("../../fonte/OpenSans-Regular.ttf") format("truetype");
+
+}
+.title{
+    overflow:visible;
+    white-space: normal;
+    text-overflow: clip;
+}
+.icone {
+    width: 12%;
+    padding: 1%;
+    margin-top: 3.8%;
+}
+.bottomLine1 {
+    margin-top: 30%;
+    border-bottom: 0.5px solid rgba(99, 92, 49, 0.46);!important;
+}
+.bottomLine8{
+    margin-top:3%;
+    border-bottom: 0.5px solid rgba(99, 92, 49, 0.46);!important;
+}
+.col-xs-10{
+    margin-top:3%;
+    text-align: initial;
+    text-overflow: ellipsis;
+    white-space:nowrap;
+    overflow: hidden;
+}
+.col-xs-2{
+    margin-top:5%;
+}
+.col-xs-12{
+    padding:0%!important;
+    margin:0%!important;
+}
+.marginTop10{
+    margin-top:5%;
+}
+.tablecontent{
+    height:20px;
+    vertical-align: middle;
+    color: #6e6d67;
+    font-size:3.2vw;
+    text-transform: uppercase;
+    text-align: center;
+    padding:5%;
+    font-family: "Open Sans";
+    border-right:0.5px solid rgba(163, 162, 155, 0.33);
+}
+.service{
+    text-overflow: ellipsis;
+    color: #2497AC;
+    font-weight: 500;
+    font-size: 4vw;
+}
+
+.listColorsAndFont {
+    color: #2497AC;
+    font-size: 4.5vw;
+    text-align: center;
+    font-family: "Open Sans";
+}
+.galeryImage{
+    width:25%;
+    vertical-align: middle;
+}
+.titulojezzy{
+    font-family: "Open Sans";
+    color: #2497AC;
+    font-size: 3.5vw;
+    text-align: center;
+}
+.historyContent{
+    margin-top: 5%;
+}
+.row{
+    padding: 0%!important;
+    margin: 0%!important;
+}
+.share{
+    padding:.5%;
+    width:100%;
+    margin-top:0%;
+}
+
+.icone {
+    width: 10%;
+
+}
+.container{
+    padding: 0%!important;
+    margin: 0%!important;
+    margin-top: 13%!important;
+}

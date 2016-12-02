@@ -1,0 +1,270 @@
+<html><!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Jezzy</title>
+    <link rel="shortcut icon" href="img/icons/favicon.ico">
+    <link rel="stylesheet" href="lib/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="lib/jasny-bootstrap/css/jasny-bootstrap.min.css">
+    <script src="lib/jquery/jquery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="css/page/base.css">
+    <script src="js/page/configuracao.js"></script>
+    <script src="js/page/pagamentosuccess.js"></script>
+    <script src="lib/jquery/jquery-2.1.4.min.js"></script>
+    <script src="lib/jquery/jquery.base64.js"></script>
+    <script src="lib/bootstrap/js/bootstrap.min.js"></script>
+    <script src="lib/jasny-bootstrap/js/jasny-bootstrap.min.js"></script>
+    <script src="lib/jquery-storage/jquery.cookie.js"></script>
+    <script src="lib/jquery-storage/jquery.storageapi.min.js"></script>
+    <script src="lib/jquery-storage/json2.js"></script>
+    <link rel="stylesheet" href="css/page/index.css">
+</head>
+
+
+<body style='background-color:transparent;'>
+<div style='background-image:url("https://secure.jezzy.com.br/jezzy-mobile/public_html/img/telas/Jezzy%20-%20Telas%20-%20Confirmacao%20de%20Pedido2.jpg");background-size:cover;background-repeat:no-repeat;border-bottom:1px solid #999933;padding:20%'></div>
+<div class="container" style="margin-top:-25%;">
+    <div class="row rowLogo">
+
+    </div>
+    <div class="textLogin" style='color:#2597AC;margin-top:23%;text-align:left;font-size:2.1vh;'>
+        <div><b>Obrigada!</b></br> Uma cópia do seu pedido foi enviada para o e-mail:<span id="email"></span></div>
+
+        <div id="payid" style="text-align:left;">
+
+            </br>
+
+            <b>Pedido n°:</b> <span id="transaction"></span></br>
+
+
+
+            <span id="titleserv"></span></br>
+
+
+
+            <b>Valor total:</b> R$<span id="total_value"></span><br>
+            <b>Data da compra:</b><span id="dn"></span><br>
+            <b>Forma de pagamento:</b><span id="payment_method_id"></span><br>
+
+
+            Para seu conforto, acompanhe o status do pedido no histórico de compras.<br><br>Qualquer duvida ou problema entre em contato com a gente.<br>Estamos à sua disposição!<br><br><b style="font-style:italic;text-align:left;">www.jezzy.com.br</b><i style="float:right;">contato@jezzy.com.br</i>
+
+        </div>
+    </div>
+
+
+    <script>
+        var Base64 = {
+            _keyStr: "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=",
+            encode: function (input) {
+                var output = "";
+                var chr1, chr2, chr3, enc1, enc2, enc3, enc4;
+                var i = 0;
+                input = Base64._utf8_encode(input);
+                while (i < input.length) {
+                    chr1 = input.charCodeAt(i++);
+                    chr2 = input.charCodeAt(i++);
+                    chr3 = input.charCodeAt(i++);
+                    enc1 = chr1 >> 2;
+                    enc2 = ((chr1 & 3) << 4) | (chr2 >> 4);
+                    enc3 = ((chr2 & 15) << 2) | (chr3 >> 6);
+                    enc4 = chr3 & 63;
+                    if (isNaN(chr2)) {
+                        enc3 = enc4 = 64;
+                    } else if (isNaN(chr3)) {
+                        enc4 = 64;
+                    }
+                    output = output + this._keyStr.charAt(enc1) + this._keyStr.charAt(enc2) + this._keyStr.charAt(enc3) + this._keyStr.charAt(enc4);
+                }
+                return output;
+            },
+            decode: function (input) {
+                var output = "";
+                var chr1, chr2, chr3;
+                var enc1, enc2, enc3, enc4;
+                var i = 0;
+                input = input.replace(/[^A-Za-z0-9\+\/\=]/g, "");
+                while (i < input.length) {
+                    enc1 = this._keyStr.indexOf(input.charAt(i++));
+                    enc2 = this._keyStr.indexOf(input.charAt(i++));
+                    enc3 = this._keyStr.indexOf(input.charAt(i++));
+                    enc4 = this._keyStr.indexOf(input.charAt(i++));
+                    chr1 = (enc1 << 2) | (enc2 >> 4);
+                    chr2 = ((enc2 & 15) << 4) | (enc3 >> 2);
+                    chr3 = ((enc3 & 3) << 6) | enc4;
+                    output = output + String.fromCharCode(chr1);
+                    if (enc3 != 64) {
+                        output = output + String.fromCharCode(chr2);
+                    }
+                    if (enc4 != 64) {
+                        output = output + String.fromCharCode(chr3);
+                    }
+                }
+                output = Base64._utf8_decode(output);
+                return output;
+            },
+            _utf8_encode: function (string) {
+                string = string.replace(/\r\n/g, "\n");
+                var utftext = "";
+                for (var n = 0; n < string.length; n++) {
+                    var c = string.charCodeAt(n);
+                    if (c < 128) {
+                        utftext += String.fromCharCode(c);
+                    }
+                    else if ((c > 127) && (c < 2048)) {
+                        utftext += String.fromCharCode((c >> 6) | 192);
+                        utftext += String.fromCharCode((c & 63) | 128);
+                    }
+                    else {
+                        utftext += String.fromCharCode((c >> 12) | 224);
+                        utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+                        utftext += String.fromCharCode((c & 63) | 128);
+                    }
+                }
+                return utftext;
+            },
+            _utf8_decode: function (utftext) {
+                var string = "";
+                var i = 0;
+                var c = c1 = c2 = 0;
+                while (i < utftext.length) {
+                    c = utftext.charCodeAt(i);
+                    if (c < 128) {
+                        string += String.fromCharCode(c);
+                        i++;
+                    }
+                    else if ((c > 191) && (c < 224)) {
+                        c2 = utftext.charCodeAt(i + 1);
+                        string += String.fromCharCode(((c & 31) << 6) | (c2 & 63));
+                        i += 2;
+                    }
+                    else {
+                        c2 = utftext.charCodeAt(i + 1);
+                        c3 = utftext.charCodeAt(i + 2);
+                        string += String.fromCharCode(((c & 15) << 12) | ((c2 & 63) << 6) | (c3 & 63));
+                        i += 3;
+                    }
+                }
+                return string;
+            }
+        };
+        function createToken() {
+            var arraySend = {
+                'secureNumbers': Math.floor(new Date().getTime() / 1000)
+            };
+            var json = JSON.stringify(arraySend);
+            return Base64.encode(json);
+        }
+        function SaveClick(){
+            var query = 'SELECT * FROM offers_statistics WHERE offer_id = ' + $.cookieStorage.get('Offer').id;
+
+            var conditions = {
+                'User':{
+                    'query':query
+                }
+            };
+
+            var postData = JSON.stringify(conditions);
+
+            postData = {
+                'params': postData
+            };
+            var url = 'https://'+api+'/users/get/query/' + createToken();
+
+
+            $.ajax({
+                method: "POST",
+                url: url,
+                data: postData
+            }).done(function(result) {
+                if(result != "") {
+                    var objReturn = JSON.parse(JSON.stringify(result));
+                    var decodeObjReturn = Base64.decode(objReturn);
+                    var convertedReturn = JSON.parse(decodeObjReturn);
+                    for(var i=0; i<convertedReturn.length;i++){
+
+
+                        var cliques = (convertedReturn[i].offers_statistics.purchased_card)/1 + 1;
+
+                        var query2 = 'UPDATE offers_statistics SET purchased_card = '+cliques+' WHERE offer_id = ' + $.cookieStorage.get('Offer').id;
+
+                        var conditions2 = {
+                            'User':{
+                                'query':query2
+                            }
+                        };
+
+                        var postData2 = JSON.stringify(conditions2);
+
+                        postData2 = {
+                            'params': postData2
+                        };
+                        var url2 = 'https://'+api+'/users/get/query/' + createToken();
+
+
+                        $.ajax({
+                            method: "POST",
+                            url: url2,
+                            data: postData2
+                        }).done(function(result) {
+                            if(result == "") {
+                                $("body").fadeOut(300, function() {
+                                    window.location.href = 'home.html'
+                                });
+                            }
+
+                        }).error(function(XMLHttpRequest, textStatus, errorThrown) {
+                            alert(errorThrown);
+                        });
+                    }
+                }else{
+                    var query2 = 'INSERT INTO offers_statistics (purchased_card, offer_id) VALUES (1, '+$.cookieStorage.get('Offer').id+')';
+                   //console.log(query2);
+                    var conditions2 = {
+                        'User':{
+                            'query':query2
+                        }
+                    };
+
+                    var postData2 = JSON.stringify(conditions2);
+
+                    postData2 = {
+                        'params': postData2
+                    };
+                    var url2 = 'https://'+api+'/users/get/query/' + createToken();
+
+
+                    $.ajax({
+                        method: "POST",
+                        url: url2,
+                        data: postData2
+                    }).done(function(result) {
+                        if(result == "") {
+                            $("body").fadeOut(300, function() {
+                                window.location.href = '../../home.html'
+                            });
+                        }
+                    }).error(function(XMLHttpRequest, textStatus, errorThrown) {
+                        alert(errorThrown);
+                    });
+                }
+
+            }).error(function(XMLHttpRequest, textStatus, errorThrown) {
+                alert(errorThrown);
+            });
+
+
+
+        }
+
+    </script>
+
+    <div class="row marginTop25">
+        <div class="col-xs-12">
+            <button type="button"  class="btn btn-success btn-lg btn-block" style="position:fixed;bottom:0%;margin-left:-4%;" onclick="SaveClick();">VOLTAR</button>
+        </div>
+    </div>
+</div>
+</body>
+</html>
